@@ -25,6 +25,7 @@
 }
 
 #player, #background0, #background1, #background2, #background3, #background4, 
-#mosking, #mossmol, #hardsoil, #mrbuck, #bbubble, #lbubble, #obubble, #cbubble{
+#mosking, #mossmol, #hardsoil, #mrbuck, #bbubble, #lbubble, #obubble, #cbubble,
+#lbubble, #flowerplate{
     display: none;
 }  
