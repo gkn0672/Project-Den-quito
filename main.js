@@ -8,7 +8,7 @@ import {UI} from "./ui.js";
 window.addEventListener('load', function(){
     const canvas = document.getElementById("canvas1");
     const ctx = canvas.getContext("2d");
-    canvas.width = 1280;
+    canvas.width = 1024;
     canvas.height = 600;
 
     const canvas2 = document.getElementById("canvas2");
@@ -34,7 +34,8 @@ window.addEventListener('load', function(){
             this.groundmargin = 50;
             this.speed = 1;
             this.maxspeed = 2;
-            this.enemies = [];
+            this.enemies = [new MosquitoKing(this)];
+            this.boss = this.enemies[0];
             this.enemyTimer = 0;
             this.enemyInterval = 3500;
             this.player = new Player(this);
@@ -43,10 +44,20 @@ window.addEventListener('load', function(){
             this.background = new Background(this);
             this.fontColor = 'black';
             this.score = 0;
+            this.gameover = false;
+            this.speedup = 0;
         }
 
         update(deltatime){
             //call check collision
+            if(this.speedup != 0 && this.speedup % 10 == 0){
+                this.speed += 0.01;
+                this.enemyInterval -= 10;
+                this.speedup = 0;
+                console.log(this.speed)
+            }
+
+            this.boss.checkdeadzone();
             this.background.update();
             this.player.update(this.input.keys, deltatime);
 
@@ -86,10 +97,15 @@ window.addEventListener('load', function(){
         addBoss(){
             this.enemies.push(new MosquitoKing(this));
         }
+
+        increaseDeadZone(){
+            this.boss.x += 15;
+            this.player.x += 15;
+        }
     }
 
     const game = new Game(canvas.width, canvas.height);
-    game.addBoss();
+    //game.addBoss();
     let lasttime = 0;
 
     function getPos(canvas2, e){
@@ -230,8 +246,13 @@ window.addEventListener('load', function(){
         lasttime = timestamp;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         game.draw(ctx);
-        game.update(deltatime);
-        requestAnimationFrame(animate);
+        if(game.gameover == false){
+            game.update(deltatime);
+            requestAnimationFrame(animate)
+        }
+        else{
+            alert('Game Over!')
+        }
     }
 
     animate(0);

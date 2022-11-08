@@ -1,8 +1,7 @@
 const states = {
     RUNNING: 0,
-    JUMPING: 1,
-    FALLING: 2,
-    ATTAKING: 3,
+    LIFTING: 1,
+    ATTACKING: 2,
 }
 
 class State {
@@ -25,23 +24,12 @@ export class Running extends State {
     }
 
     handleInput(input){
-        if(input.includes('ArrowRight')){
-            this.player.x += 2 * this.player.game.speed;    
-        }
-
-        if(input.includes('ArrowLeft')){
-            this.player.x -= 3 * this.player.game.speed;    
-        }
-        
-        if(input.includes('ArrowUp') || input.includes(' ')){
-             this.player.setState(states.JUMPING, 1);
-        }
     }
 }
 
-export class Jumping extends State {
+export class Lifting extends State {
     constructor(player){
-        super('JUMPING');
+        super('LIFTING');
         this.player = player;
     }
 
@@ -53,42 +41,6 @@ export class Jumping extends State {
     }
 
     handleInput(input){
-        if(input.includes('ArrowRight')){
-            this.player.x += this.player.game.speed;    
-        }
-
-        if(input.includes('ArrowLeft')){
-            this.player.x -= this.player.game.speed;    
-        }
-
-        if (this.player.velocity > this.player.weight){
-            this.player.setState(states.FALLING, 1);
-        }
-    }
-}
-
-export class Falling extends State {
-    constructor(player){
-        super('FALLING');
-        this.player = player;
-    }
-
-    enter(){
-        //set sprite sheet frame Y
-    }
-
-    handleInput(input){
-        if(input.includes('ArrowRight')){
-            this.player.x += this.player.game.speed;    
-        }
-
-        if(input.includes('ArrowLeft')){
-            this.player.x -= this.player.game.speed;    
-        }
-
-        if (this.player.onGround()){
-            this.player.setState(states.RUNNING, 0.5);
-        }
     }
 }
 
