@@ -8,6 +8,10 @@ class Enemy {
         this.frameInterval = 1000 / this.fps;
         this.frameTimer = 0;
         this.killed = false;
+        this.staggerFrames = 10;
+        this.currentFrameX = 0;
+        this.currentFrameY = 0;
+        this.currentgFrame = 0;
     }
 
     update(deltatime){
@@ -28,7 +32,10 @@ class Enemy {
 
     draw(context){
         context.strokeRect(this.x, this.y, this.width, this.height);
-        context.drawImage(this.image, this.x, this.y, this.width, this.height);
+        let position = Math.floor(this.currentgFrame/this.staggerFrames) % this.maxframe;
+        this.currentFrameX = this.width * position;
+        context.drawImage(this.image, this.currentFrameX, this.currentFrameY * this.height , this.width, this.height, this.x, this.y, this.width, this.height);
+        this.currentgFrame++;
     }
 
     damaged(){
@@ -47,13 +54,15 @@ export class MosquitoKing extends Enemy{
         super();
         this.game = game;
         this.marked = false;
-        this.width = 150;
-        this.height = this.game.height - this.game.groundmargin;
+        this.width = 260;
+        this.height = 268;
         this.x = 10;
         this.y = 0;
-        this.speedX = 10;
+        this.currentFrameX = 0;
+        this.currentFrameY = 0;
+        this.speedX = 1;
         this.speedY = 0;
-        this.maxframe = 5;
+        this.maxframe = 7;
         this.image = document.getElementById("mosking");
         this.hitcode = "None";
         this.hit = "Immortal"
@@ -91,13 +100,15 @@ export class HardenedSoil extends Enemy{
         super();
         this.game = game;
         this.marked = false;
-        this.width = 50;
-        this.height = 75;
+        this.width = 118.95;
+        this.height = 150;
         this.x = this.game.width;
         this.y = this.game.height - this.height - this.game.groundmargin;
         this.speedX = 0.5 * this.game.speed;
         this.speedY = 0;
-        this.maxframe = 5;
+        this.maxframe = 10;
+        this.currentFrameX = 0;
+        this.currentFrameY = 0;
         this.image = document.getElementById("hardsoil");
         this.hitcode = "B";
         this.hit = this.hitcode.repeat(Math.floor(Math.random() * 2 + 1));
@@ -120,13 +131,15 @@ export class Bucket extends Enemy{
         super();
         this.game = game;
         this.marked = false;
-        this.width = 50;
-        this.height = 50;
+        this.width = 60;
+        this.height = 101;
         this.x = this.game.width;
         this.y = this.game.height - this.height - this.game.groundmargin;
         this.speedX = 0.25 * this.game.speed;
         this.speedY = 0;
-        this.maxframe = 5;
+        this.maxframe = 15;
+        this.currentFrameX = 0;
+        this.currentFrameY = 0;
         this.image = document.getElementById("mrbuck");
         this.hitcode = "O";
         this.hit = this.hitcode.repeat(Math.floor(Math.random() * 2 + 1));
