@@ -126,16 +126,13 @@ window.addEventListener('load', function(){
     
     /*
         Based on numpad
-
         7 8 9
         4 5 6
         1 2 3
-
         up = 8
         down = 2
         left = 4
         right = 6
-
     */
 
     function mousemove(canvas2, ctx2, e){
@@ -251,7 +248,9 @@ window.addEventListener('load', function(){
             requestAnimationFrame(animate)
         }
         else{
-            alert('Game Over!')
+            // game.update(deltatime);
+            // requestAnimationFrame(animate)
+            //alert('Game Over!')
         }
     }
 
