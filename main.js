@@ -2,7 +2,7 @@
 import { Player } from "./player.js";
 import { Background } from "./background.js";
 import { InputHandle } from "./input.js";
-import { MosquitoKing, HardenedSoil, Bucket } from "./enemies.js";
+import { MosquitoKing, HardenedSoil, Bucket, FlowerPlate } from "./enemies.js";
 import {UI} from "./ui.js";
 
 window.addEventListener('load', function(){
@@ -160,7 +160,7 @@ window.addEventListener('load', function(){
                movement += "8"
             }
     
-            ctx2.fillstyle = 'black';
+            ctx2.fillstyle = 'yellow';
             ctx2.fillRect(drawx, drawy, 3, 3);
 
 
